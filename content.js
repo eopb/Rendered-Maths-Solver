@@ -13,7 +13,7 @@ function updateMLinks() {
 
 updateMLinks();
 
-setInterval(updateMLinks, 1000);
+setInterval(updateMLinks, 2000);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const matches = document.querySelectorAll("script[type='math/tex']");
