@@ -14,6 +14,10 @@ function updateMLinks() {
                 const iframe = document.createElement("iframe");
                 iframe.id = "MathsOverlay";
                 iframe.setAttribute("src", walframUrl(element.textContent));
+                iframe.height = "200";
+                iframe.width = "400";
+                iframe.style.border = "3px solid rgba(28,110,164,0.68)";
+                iframe.style.borderRadius = "5px";
                 iframe.style.backgroundColor = "#fff";
                 iframe.style.position = "fixed";
                 iframe.style.top = `${window.event.clientY - 5}px`;
@@ -57,6 +61,13 @@ function removeOldMath() {
 updateMLinks();
 
 setInterval(updateMLinks, 2000);
+
+setInterval(function() {
+    console.log(
+        window.event.clientY - 5 ==
+        parseInt(document.getElementById("MathsOverlay").style.top)
+    );
+}, 2000);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const matches = document.querySelectorAll("script[type='math/tex']");
