@@ -16,8 +16,9 @@ function updateMLinks() {
                 iframe.setAttribute("src", walframUrl(element.textContent));
                 iframe.height = "200";
                 iframe.width = "400";
-                iframe.style.border = "3px solid rgba(28,110,164,0.68)";
+                iframe.style.border = "3px solid rgb(28,110,164)";
                 iframe.style.borderRadius = "5px";
+                iframe.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
                 iframe.style.backgroundColor = "#fff";
                 iframe.style.position = "fixed";
                 iframe.style.top = `${window.event.clientY - 5}px`;
