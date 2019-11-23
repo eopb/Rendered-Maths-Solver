@@ -3,30 +3,7 @@ function updateMLinks() {
     const matches = document.querySelectorAll("script[type='math/tex']");
     matches.forEach(element => {
         parent = element.parentElement;
-        onmousemove = function(e) {
-            mouseLoc = { x: e.clientX, y: e.clientY };
-            var overlayRect = document
-                .getElementById("MathsOverlay")
-                .getBoundingClientRect();
-            var pRect = parent.getBoundingClientRect();
-            console.log(mouseLoc);
-            console.log(
-                overlayRect.top,
-                overlayRect.right,
-                overlayRect.bottom,
-                overlayRect.left
-            );
-            console.log(pRect.top, pRect.right, pRect.bottom, pRect.left);
-            if (pRect.left <= mouseLoc.x && pRect.right >= mouseLoc.x) {
-                console.log("horizontal in");
-            }
-            console.log(
-                `${pRect.top} <= ${mouseLoc.y} && ${pRect.bottom} >= ${mouseLoc.y}`
-            );
-            if (pRect.top <= mouseLoc.y && pRect.bottom >= mouseLoc.y) {
-                console.log("vertical in");
-            }
-        };
+
         if (parent.onclick === null) {
             parent.onclick = function() {
                 wolfram(element.textContent);
