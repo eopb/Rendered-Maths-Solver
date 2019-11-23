@@ -45,6 +45,8 @@ function styleIframe(i) {
     i.style.resize = "both";
     i.style.border = "3px solid rgb(28,110,164)";
     i.style.borderRadius = "5px";
+    i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
+    i.style.backgroundColor = "#fff";
     i.style.margin = "0";
     i.style.padding = "0";
 }
@@ -52,8 +54,6 @@ function styleIframe(i) {
 function styleDiv(i) {
     i.height = "200";
     i.width = "400";
-    i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
-    i.style.backgroundColor = "#fff";
     i.style.position = "fixed";
     i.style.top = `${window.event.clientY - 5}px`;
     i.style.left = `${window.event.clientX - 5}px`;
