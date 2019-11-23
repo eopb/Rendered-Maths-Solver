@@ -8,17 +8,29 @@ function updateMLinks() {
             parent.onclick = function() {
                 // wolfram(element.textContent);
                 removeOldMath();
+                const div = document.createElement("div");
+                div.id = "MathsOverlay";
+                styleDiv(div);
                 const iframe = document.createElement("iframe");
-                iframe.id = "MathsOverlay";
                 iframe.setAttribute("src", walframUrl(element.textContent));
                 styleIframe(iframe);
-                document.body.appendChild(iframe);
+                div.appendChild(iframe);
+                document.body.appendChild(div);
+                // const close = document.createElement("button");
+                // close.innerHTML = "Close";
+                // iframe.appendChild(close);
             };
         }
     });
 }
 
 function styleIframe(i) {
+    i.height = "100%";
+    i.width = "100%";
+    i.style.resize = "both";
+}
+
+function styleDiv(i) {
     i.height = "200";
     i.width = "400";
     i.style.border = "3px solid rgb(28,110,164)";
@@ -26,7 +38,6 @@ function styleIframe(i) {
     i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     i.style.backgroundColor = "#fff";
     i.style.position = "fixed";
-    i.style.resize = "both";
     i.style.top = `${window.event.clientY - 5}px`;
     i.style.left = `${window.event.clientX - 5}px`;
 }
