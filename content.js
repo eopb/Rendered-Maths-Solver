@@ -15,10 +15,11 @@ function updateMLinks() {
                 iframe.setAttribute("src", walframUrl(element.textContent));
                 styleIframe(iframe);
                 div.appendChild(iframe);
+                const close = document.createElement("button");
+                close.innerHTML = "&#10060;";
+                styleButton(close);
+                div.appendChild(close);
                 document.body.appendChild(div);
-                // const close = document.createElement("button");
-                // close.innerHTML = "Close";
-                // iframe.appendChild(close);
             };
         }
     });
@@ -30,6 +31,8 @@ function styleIframe(i) {
     i.style.resize = "both";
     i.style.border = "3px solid rgb(28,110,164)";
     i.style.borderRadius = "5px";
+    i.style.margin = "0";
+    i.style.padding = "0";
 }
 
 function styleDiv(i) {
@@ -40,6 +43,14 @@ function styleDiv(i) {
     i.style.position = "fixed";
     i.style.top = `${window.event.clientY - 5}px`;
     i.style.left = `${window.event.clientX - 5}px`;
+    i.style.margin = "0";
+    i.style.padding = "0";
+}
+
+function styleButton(i) {
+    i.style.position = "absolute";
+    i.style.right = "5px";
+    i.style.top = "5px";
 }
 
 function removeOldMath() {
