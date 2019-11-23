@@ -6,11 +6,7 @@ function updateMLinks() {
 
         if (parent.onclick === null) {
             parent.onclick = function() {
-                wolfram(element.textContent);
-            };
-        }
-        if (parent.onmousemove === null) {
-            parent.onmouseover = function() {
+                // wolfram(element.textContent);
                 removeOldMath();
                 const iframe = document.createElement("iframe");
                 iframe.id = "MathsOverlay";
@@ -22,16 +18,16 @@ function updateMLinks() {
     });
 }
 
-function styleIframe(iframe) {
-    iframe.height = "200";
-    iframe.width = "400";
-    iframe.style.border = "3px solid rgb(28,110,164)";
-    iframe.style.borderRadius = "5px";
-    iframe.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
-    iframe.style.backgroundColor = "#fff";
-    iframe.style.position = "fixed";
-    iframe.style.top = `${window.event.clientY - 5}px`;
-    iframe.style.left = `${window.event.clientX - 5}px`;
+function styleIframe(i) {
+    i.height = "200";
+    i.width = "400";
+    i.style.border = "3px solid rgb(28,110,164)";
+    i.style.borderRadius = "5px";
+    i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
+    i.style.backgroundColor = "#fff";
+    i.style.position = "fixed";
+    i.style.top = `${window.event.clientY - 5}px`;
+    i.style.left = `${window.event.clientX - 5}px`;
 }
 
 function removeMath() {
