@@ -77,11 +77,6 @@ updateMLinks();
 
 setInterval(updateMLinks, 2000);
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    const matches = document.querySelectorAll("script[type='math/tex']");
-    sendResponse({ count: matches.length });
-});
-
 function wolframInNewTab(query) {
     window.open(walframUrl(query));
 }
