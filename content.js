@@ -7,8 +7,8 @@ function updateMLinks() {
             mouseLoc = { x: e.clientX, y: e.clientY };
             var overlayRect = document
                 .getElementById("MathsOverlay")
-                .getClientRects();
-            var pRect = parent.getClientRects();
+                .getBoundingClientRect();
+            var pRect = parent.getBoundingClientRect();
             console.log(mouseLoc);
             console.log(
                 overlayRect.top,
