@@ -15,7 +15,7 @@ function updateMLinks() {
         if (parent.onclick === null) {
             parent.onclick = function() {
                 if (clickMode === "New Tab") {
-                    wolfram(element.textContent);
+                    wolframInNewTab(element.textContent);
                 } else {
                     removeOldMath();
                     const div = document.createElement("div");
@@ -82,7 +82,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     sendResponse({ count: matches.length });
 });
 
-function wolfram(query) {
+function wolframInNewTab(query) {
     window.open(walframUrl(query));
 }
 
