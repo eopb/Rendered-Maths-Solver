@@ -62,6 +62,7 @@ function styleDiv(i) {
 }
 
 function styleButton(i) {
+    i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     i.style.position = "absolute";
     i.style.right = "5px";
     i.style.top = "5px";
