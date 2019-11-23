@@ -11,11 +11,11 @@
         ]
     }],
     "browser_action": {
-        "default_popup": "popup.html",
-        "default_title": "hi"
+        "default_popup": "popup/popup.html",
+        "default_title": "Rendered Maths Solver"
     },
     "options_ui": {
-        "page": "options.html",
+        "page": "options/options.html",
         "open_in_tab": false
     },
     "icons": {
