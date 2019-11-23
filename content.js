@@ -1,3 +1,12 @@
+clickMode = null;
+chrome.storage.sync.get({
+        clickCause: "Overlay Window"
+    },
+    function(items) {
+        clickMode = items.clickCause;
+    }
+);
+
 function updateMLinks() {
     const matches = document.querySelectorAll("script[type='math/tex']");
     matches.forEach(element => {
@@ -5,23 +14,26 @@ function updateMLinks() {
 
         if (parent.onclick === null) {
             parent.onclick = function() {
-                // wolfram(element.textContent);
-                removeOldMath();
-                const div = document.createElement("div");
-                div.id = "MathsOverlay";
-                styleDiv(div);
-                const iframe = document.createElement("iframe");
-                iframe.setAttribute("src", walframUrl(element.textContent));
-                styleIframe(iframe);
-                div.appendChild(iframe);
-                const close = document.createElement("button");
-                close.innerHTML = "&#10060;";
-                styleButton(close);
-                close.onclick = function() {
+                if (clickMode === "New Tab") {
+                    wolfram(element.textContent);
+                } else {
                     removeOldMath();
-                };
-                div.appendChild(close);
-                document.body.appendChild(div);
+                    const div = document.createElement("div");
+                    div.id = "MathsOverlay";
+                    styleDiv(div);
+                    const iframe = document.createElement("iframe");
+                    iframe.setAttribute("src", walframUrl(element.textContent));
+                    styleIframe(iframe);
+                    div.appendChild(iframe);
+                    const close = document.createElement("button");
+                    close.innerHTML = "&#10060;";
+                    styleButton(close);
+                    close.onclick = function() {
+                        removeOldMath();
+                    };
+                    div.appendChild(close);
+                    document.body.appendChild(div);
+                }
             };
         }
     });

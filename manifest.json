@@ -13,5 +13,20 @@
     "browser_action": {
         "default_popup": "popup.html",
         "default_title": "hi"
+    },
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": false
+    },
+    "icons": {
+        "48": "icons/48.png"
+    },
+    "permissions": [
+        "storage"
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "renderedmathssolver@efunb.com"
+        }
     }
 }
