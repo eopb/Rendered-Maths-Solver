@@ -12,6 +12,12 @@ If you run into any issues with this add-on please email [incoming+efunb-rendere
 
 It works in Firefox and Google Chrome.
 
+It is known to work on the following sites:
+- [Quora](https://www.quora.com/)
+- [Integral Maths](https://integralmaths.org/)
+- [SUVAT.app](https://suvat.app/)
+
+
 ## **Warning**
 
 **If you are viewing this from GitHub then this is a read only copy. Please contribute to the GitLab copy [here](https://gitlab.com/efunb/rendered-maths-solver).**
