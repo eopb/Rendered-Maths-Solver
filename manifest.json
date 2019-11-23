@@ -11,7 +11,7 @@
         ]
     }],
     "browser_action": {
-        "default_popup": "popup/popup.html",
+        "default_popup": "options/options.html",
         "default_title": "Rendered Maths Solver"
     },
     "options_ui": {
