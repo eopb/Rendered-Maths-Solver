@@ -1,5 +1,4 @@
 function updateMLinks() {
-    console.log("log");
     const matches = document.querySelectorAll("script[type='math/tex']");
     matches.forEach(element => {
         parent = element.parentElement;
