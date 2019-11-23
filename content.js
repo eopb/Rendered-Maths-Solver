@@ -26,40 +26,19 @@ function styleIframe(i) {
     i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     i.style.backgroundColor = "#fff";
     i.style.position = "fixed";
+    i.style.resize = "both";
     i.style.top = `${window.event.clientY - 5}px`;
     i.style.left = `${window.event.clientX - 5}px`;
 }
 
-function removeMath() {
-    e = document.getElementById("MathsOverlay");
-    console.log(e);
-    if (
-        e !== null &&
-        !e.classList.contains("hoverP") &&
-        !(window.event.clientY - 5 == parseInt(e.style.top))
-    ) {
-        e.remove();
-    }
-}
-
 function removeOldMath() {
     e = document.getElementById("MathsOverlay");
-    console.log("adlksj");
-    if (e !== null) {
-        e.remove();
-    }
+    if (e !== null) e.remove();
 }
 
 updateMLinks();
 
 setInterval(updateMLinks, 2000);
-
-setInterval(function() {
-    console.log(
-        window.event.clientY - 5 ==
-        parseInt(document.getElementById("MathsOverlay").style.top)
-    );
-}, 2000);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const matches = document.querySelectorAll("script[type='math/tex']");
