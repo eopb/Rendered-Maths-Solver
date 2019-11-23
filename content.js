@@ -6,64 +6,64 @@ function updateMLinks() {
 
         if (parent.onclick === null) {
             parent.onclick = function() {
-                wolfram(element.textContent);
-            };
-        }
-        if (parent.onmousemove === null) {
-            parent.onmouseover = function() {
+                // wolfram(element.textContent);
                 removeOldMath();
+                const div = document.createElement("div");
+                div.id = "MathsOverlay";
+                styleDiv(div);
                 const iframe = document.createElement("iframe");
-                iframe.id = "MathsOverlay";
                 iframe.setAttribute("src", walframUrl(element.textContent));
                 styleIframe(iframe);
-                document.body.appendChild(iframe);
+                div.appendChild(iframe);
+                const close = document.createElement("button");
+                close.innerHTML = "&#10060;";
+                styleButton(close);
+                close.onclick = function() {
+                    removeOldMath();
+                };
+                div.appendChild(close);
+                document.body.appendChild(div);
             };
         }
     });
 }
 
-function styleIframe(iframe) {
-    iframe.height = "200";
-    iframe.width = "400";
-    iframe.style.border = "3px solid rgb(28,110,164)";
-    iframe.style.borderRadius = "5px";
-    iframe.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
-    iframe.style.backgroundColor = "#fff";
-    iframe.style.position = "fixed";
-    iframe.style.top = `${window.event.clientY - 5}px`;
-    iframe.style.left = `${window.event.clientX - 5}px`;
+function styleIframe(i) {
+    i.height = "100%";
+    i.width = "100%";
+    i.style.resize = "both";
+    i.style.border = "3px solid rgb(28,110,164)";
+    i.style.borderRadius = "5px";
+    i.style.margin = "0";
+    i.style.padding = "0";
 }
 
-function removeMath() {
-    e = document.getElementById("MathsOverlay");
-    console.log(e);
-    if (
-        e !== null &&
-        !e.classList.contains("hoverP") &&
-        !(window.event.clientY - 5 == parseInt(e.style.top))
-    ) {
-        e.remove();
-    }
+function styleDiv(i) {
+    i.height = "200";
+    i.width = "400";
+    i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
+    i.style.backgroundColor = "#fff";
+    i.style.position = "fixed";
+    i.style.top = `${window.event.clientY - 5}px`;
+    i.style.left = `${window.event.clientX - 5}px`;
+    i.style.margin = "0";
+    i.style.padding = "0";
+}
+
+function styleButton(i) {
+    i.style.position = "absolute";
+    i.style.right = "5px";
+    i.style.top = "5px";
 }
 
 function removeOldMath() {
     e = document.getElementById("MathsOverlay");
-    console.log("adlksj");
-    if (e !== null) {
-        e.remove();
-    }
+    if (e !== null) e.remove();
 }
 
 updateMLinks();
 
 setInterval(updateMLinks, 2000);
-
-setInterval(function() {
-    console.log(
-        window.event.clientY - 5 ==
-        parseInt(document.getElementById("MathsOverlay").style.top)
-    );
-}, 2000);
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const matches = document.querySelectorAll("script[type='math/tex']");
