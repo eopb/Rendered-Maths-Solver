@@ -16,17 +16,7 @@ function updateMLinks() {
                 iframe.id = "MathsOverlay";
                 iframe.setAttribute("src", walframUrl(element.textContent));
                 styleIframe(iframe);
-                iframe.classList.add("hoverP");
-                iframe.onmouseover = function() {};
-                iframe.onmouseout = function() {};
                 document.body.appendChild(iframe);
-            };
-            parent.onmouseleave = function() {
-                e = document.getElementById("MathsOverlay");
-                if (e !== null) {
-                    e.classList.remove("hoverP");
-                }
-                removeMath();
             };
         }
     });
