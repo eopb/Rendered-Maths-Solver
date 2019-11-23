@@ -18,6 +18,9 @@ function updateMLinks() {
                 const close = document.createElement("button");
                 close.innerHTML = "&#10060;";
                 styleButton(close);
+                close.onclick = function() {
+                    removeOldMath();
+                };
                 div.appendChild(close);
                 document.body.appendChild(div);
             };
