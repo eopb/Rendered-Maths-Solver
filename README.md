@@ -10,9 +10,11 @@ A browser add-on that that provides solutions to LaTeX equations rendered with M
 
 If you run into any issues with this add-on please email [incoming+efunb-rendered-maths-solver-15477312-issue-@incoming.gitlab.com](incoming+efunb-rendered-maths-solver-15477312-issue-@incoming.gitlab.com)
 
-## Where to get it for your browser.
+## Where to get this add-on for your browser.
 
 [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/rendered-maths-solver)
+
+[Download-Latest](https://gitlab.com/efunb/rendered-maths-solver/-/jobs/artifacts/master/download?job=build)
 
 ## Where does it work?
 
