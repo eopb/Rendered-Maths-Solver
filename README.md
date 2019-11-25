@@ -1,6 +1,8 @@
 # Rendered Maths Solver
 
-<img align="right" width="135" src="icons/256.png">
+<img align="right" width="135" src="public/icons/256.png">
+
+[![pipeline status](https://gitlab.com/efunb/rendered-maths-solver/badges/master/pipeline.svg)](https://gitlab.com/efunb/rendered-maths-solver/commits/master)
 
 A browser add-on that that provides solutions to LaTeX equations rendered with MathJax using Wolfram Alpha.
 
