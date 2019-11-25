@@ -1,0 +1,22 @@
+{
+    "name": "rendered-maths-solver",
+    "version": "0.0.1",
+    "description": "A browser add-on that that provides solutions to LaTeX equations rendered with MathJax using Wolfram Alpha.",
+    "main": "content.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://gitlab.com/efunb/rendered-maths-solver.git"
+    },
+    "author": "Ethan Brierley",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://gitlab.com/efunb/rendered-maths-solver/issues"
+    },
+    "homepage": "https://gitlab.com/efunb/rendered-maths-solver#readme",
+    "devDependencies": {
+        "@types/chrome": "0.0.86"
+    }
+}
