@@ -1,6 +1,5 @@
 function save_options() {
-  var clickCause: any = document.getElementById("onclick");
-  var clickCause = clickCause.value;
+  var clickCause = (document.getElementById("onclick") as any).value;
   console.log("saving");
   chrome.storage.sync.set(
     {
