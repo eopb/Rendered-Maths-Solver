@@ -1,0 +1,19 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+    - mv public public-source
+    - mv dist public
+  artifacts:
+    paths:
+      - public
