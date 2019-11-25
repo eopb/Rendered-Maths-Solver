@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist/js",
+    "allowJs": true,
+    "target": "es5",
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["./src/**/*"]
+}

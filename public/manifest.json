@@ -8,15 +8,15 @@
             "<all_urls>"
         ],
         "js": [
-            "content.js"
+            "js/content.js"
         ]
     }],
     "browser_action": {
-        "default_popup": "options/options.html",
+        "default_popup": "options.html",
         "default_title": "Rendered Maths Solver"
     },
     "options_ui": {
-        "page": "options/options.html",
+        "page": "options.html",
         "open_in_tab": false
     },
     "icons": {
