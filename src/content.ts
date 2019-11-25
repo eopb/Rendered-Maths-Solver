@@ -14,14 +14,14 @@ function updateMLinks() {
     var parent = element.parentElement;
 
     if (parent.onclick === null) {
-      parent.onclick = function() {
+      parent.onclick = function(event) {
         if (clickMode === "New Tab") {
           wolframInNewTab(element.textContent);
         } else {
           removeOldMath();
           const div = document.createElement("div");
           div.id = "MathsOverlay";
-          styleDiv(div);
+          styleDiv(div, event);
           const iframe = document.createElement("iframe");
           iframe.setAttribute("src", walframUrl(element.textContent));
           styleIframe(iframe);
@@ -40,7 +40,7 @@ function updateMLinks() {
   });
 }
 
-function styleIframe(i) {
+function styleIframe(i: HTMLIFrameElement) {
   i.height = "100%";
   i.width = "100%";
   i.style.resize = "both";
@@ -52,18 +52,17 @@ function styleIframe(i) {
   i.style.padding = "0";
 }
 
-function styleDiv(i) {
-  i.height = "200";
-  i.width = "400";
+function styleDiv(i: HTMLDivElement, event: MouseEvent) {
+  i.style.height = "200";
+  i.style.width = "400";
   i.style.position = "fixed";
-  var e: any = window.event;
-  i.style.top = `${e.clientY - 5}px`;
-  i.style.left = `${e.clientX - 5}px`;
+  i.style.top = `${event.clientY - 5}px`;
+  i.style.left = `${event.clientX - 5}px`;
   i.style.margin = "0";
   i.style.padding = "0";
 }
 
-function styleButton(i) {
+function styleButton(i: HTMLButtonElement) {
   i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
   i.style.position = "absolute";
   i.style.right = "5px";
@@ -79,9 +78,9 @@ updateMLinks();
 
 setInterval(updateMLinks, 2000);
 
-function wolframInNewTab(query) {
+function wolframInNewTab(query: string) {
   window.open(walframUrl(query));
 }
 
-var walframUrl = query =>
+var walframUrl = (query: string): string =>
   `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
