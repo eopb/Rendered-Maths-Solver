@@ -12,11 +12,13 @@ chrome.storage.sync.get(
 
 class MathElements {
   matches: MathElement[];
+
   constructor() {
     this.matches = [
       ...document.querySelectorAll("script[type='math/tex']")
     ].map(x => new MathElement(x.textContent!, x.parentElement!));
   }
+
   onEach(fn: (e: MathElement) => void): void {
     this.matches.forEach(fn);
   }
@@ -25,10 +27,12 @@ class MathElements {
 class MathElement {
   latex: string;
   parent: HTMLElement;
+
   constructor(latex: string, parent: HTMLElement) {
     this.latex = latex;
     this.parent = parent;
   }
+
   newTab() {
     console.log(this.latex);
     Wolfram.InNewTab(this.latex);
@@ -84,7 +88,6 @@ namespace Style {
     ecss.margin = "0";
     ecss.padding = "0";
   }
-
   export function div(ecss: CSSStyleDeclaration) {
     ecss.height = "200";
     ecss.width = "400";
@@ -96,7 +99,6 @@ namespace Style {
     ecss.top = `${event.clientY - 5}px`;
     ecss.left = `${event.clientX - 5}px`;
   }
-
   export function button(ecss: CSSStyleDeclaration) {
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.position = "absolute";
@@ -118,7 +120,6 @@ namespace Wolfram {
   export function InNewTab(query: string) {
     window.open(url(query));
   }
-
   export let url = (query: string): string =>
     `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
 }
