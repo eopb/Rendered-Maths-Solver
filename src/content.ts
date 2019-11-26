@@ -19,19 +19,23 @@ function updateMLinks() {
           wolframInNewTab(element.textContent!);
         } else {
           removeOldMath();
+
           const div = document.createElement("div");
           div.id = "MathsOverlay";
-          styleDiv(div, event);
+          style.styleDiv(div.style, event);
+
           const iframe = document.createElement("iframe");
           iframe.setAttribute("src", walframUrl(element.textContent!));
-          styleIframe(iframe);
+          style.styleIframe(iframe.style);
           div.appendChild(iframe);
+
           const close = document.createElement("button");
           close.innerHTML = "&#10060;";
-          styleButton(close);
+          style.styleButton(close.style);
           close.onclick = function() {
             removeOldMath();
           };
+
           div.appendChild(close);
           document.body.appendChild(div);
         }
@@ -40,37 +44,38 @@ function updateMLinks() {
   });
 }
 
-function styleIframe(i: HTMLIFrameElement) {
-  i.height = "100%";
-  i.width = "100%";
-  i.style.resize = "both";
-  i.style.border = "3px solid rgb(28,110,164)";
-  i.style.borderRadius = "5px";
-  i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
-  i.style.backgroundColor = "#fff";
-  i.style.margin = "0";
-  i.style.padding = "0";
-}
+namespace style {
+  export function styleIframe(ecss: CSSStyleDeclaration) {
+    ecss.height = "100%";
+    ecss.width = "100%";
+    ecss.resize = "both";
+    ecss.border = "3px solid rgb(28,110,164)";
+    ecss.borderRadius = "5px";
+    ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
+    ecss.backgroundColor = "#fff";
+    ecss.margin = "0";
+    ecss.padding = "0";
+  }
 
-function styleDiv(i: HTMLDivElement, event: MouseEvent) {
-  i.style.height = "200";
-  i.style.width = "400";
-  i.style.position = "fixed";
-  i.style.top = `${event.clientY - 5}px`;
-  i.style.left = `${event.clientX - 5}px`;
-  i.style.margin = "0";
-  i.style.padding = "0";
-}
+  export function styleDiv(ecss: CSSStyleDeclaration, event: MouseEvent) {
+    ecss.height = "200";
+    ecss.width = "400";
+    ecss.position = "fixed";
+    ecss.top = `${event.clientY - 5}px`;
+    ecss.left = `${event.clientX - 5}px`;
+    ecss.margin = "0";
+    ecss.padding = "0";
+  }
 
-function styleButton(i: HTMLButtonElement) {
-  i.style.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
-  i.style.position = "absolute";
-  i.style.right = "5px";
-  i.style.top = "5px";
+  export function styleButton(ecss: CSSStyleDeclaration) {
+    ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
+    ecss.position = "absolute";
+    ecss.right = "5px";
+    ecss.top = "5px";
+  }
 }
-
 function removeOldMath() {
-  let e = document.getElementById("MathsOverlay");
+  const e = document.getElementById("MathsOverlay");
   if (e !== null) e.remove();
 }
 
