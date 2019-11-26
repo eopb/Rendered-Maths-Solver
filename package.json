@@ -26,5 +26,8 @@
         "webpack-merge": "~4.2.1",
         "ts-loader": "^5.4.5",
         "typescript": "~3.7"
+    },
+    "dependencies": {
+        "ts-polyfill": "^3.5.3"
     }
 }
