@@ -15,8 +15,8 @@ class MathElements {
       ...document.querySelectorAll("script[type='math/tex']")
     ].map(x => new MathElement(x.textContent!, x.parentElement!));
   }
-  onEach(callbackfn: (e: MathElement) => void): void {
-    this.matches.forEach(callbackfn);
+  onEach(fn: (e: MathElement) => void): void {
+    this.matches.forEach(fn);
   }
 }
 
@@ -27,6 +27,33 @@ class MathElement {
     this.latex = latex;
     this.parent = parent;
   }
+  newTab() {
+    console.log(this.latex);
+    wolframInNewTab(this.latex);
+  }
+  newOverlayWindow(event: MouseEvent) {
+    removeOldMath();
+
+    const div = document.createElement("div");
+    div.id = "MathsOverlay";
+    Style.styleDiv(div.style);
+    Style.positionDiv(div.style, event);
+
+    const iframe = document.createElement("iframe");
+    iframe.setAttribute("src", walframUrl(this.latex));
+    Style.styleIframe(iframe.style);
+    div.appendChild(iframe);
+
+    const close = document.createElement("button");
+    close.innerHTML = "&#10060;";
+    Style.styleButton(close.style);
+    close.onclick = function() {
+      removeOldMath();
+    };
+
+    div.appendChild(close);
+    document.body.appendChild(div);
+  }
 }
 
 function updateMLinks() {
@@ -35,33 +62,10 @@ function updateMLinks() {
     let parent = element.parent;
 
     if (parent.onclick === null) {
-      parent.onclick = function(event) {
-        if (clickMode === "New Tab") {
-          wolframInNewTab(element.latex);
-        } else {
-          removeOldMath();
-
-          const div = document.createElement("div");
-          div.id = "MathsOverlay";
-          Style.styleDiv(div.style);
-          Style.positionDiv(div.style, event);
-
-          const iframe = document.createElement("iframe");
-          iframe.setAttribute("src", walframUrl(element.latex));
-          Style.styleIframe(iframe.style);
-          div.appendChild(iframe);
-
-          const close = document.createElement("button");
-          close.innerHTML = "&#10060;";
-          Style.styleButton(close.style);
-          close.onclick = function() {
-            removeOldMath();
-          };
-
-          div.appendChild(close);
-          document.body.appendChild(div);
-        }
-      };
+      parent.onclick =
+        clickMode === "New Tab"
+          ? () => element.newTab()
+          : e => element.newOverlayWindow(e);
     }
   });
 }
@@ -98,6 +102,7 @@ namespace Style {
     ecss.top = "5px";
   }
 }
+
 function removeOldMath() {
   const e = document.getElementById("MathsOverlay");
   if (e !== null) e.remove();
