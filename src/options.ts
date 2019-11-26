@@ -1,12 +1,12 @@
 function save_options() {
-  var clickCause = (document.getElementById("onclick") as any).value;
+  let clickCause = (document.getElementById("onclick") as any).value;
   console.log("saving");
   chrome.storage.sync.set(
     {
       clickCause: clickCause
     },
     function() {
-      var status = document.getElementById("status")!;
+      let status = document.getElementById("status")!;
       status.textContent = "Options saved.";
       setTimeout(function() {
         status.textContent = "";
@@ -21,8 +21,8 @@ function restore_options() {
       clickCause: "Overlay Window"
     },
     function(items) {
-      var x: any = document.getElementById("onclick");
-      x.value = items.clickCause;
+      (document.getElementById("onclick") as HTMLSelectElement).value =
+        items.clickCause;
     }
   );
 }

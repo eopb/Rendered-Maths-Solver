@@ -11,7 +11,7 @@ chrome.storage.sync.get(
 function updateMLinks() {
   const matches = document.querySelectorAll("script[type='math/tex']");
   matches.forEach(element => {
-    var parent = element.parentElement!;
+    let parent = element.parentElement!;
 
     if (parent.onclick === null) {
       parent.onclick = function(event) {
@@ -70,7 +70,7 @@ function styleButton(i: HTMLButtonElement) {
 }
 
 function removeOldMath() {
-  var e = document.getElementById("MathsOverlay");
+  let e = document.getElementById("MathsOverlay");
   if (e !== null) e.remove();
 }
 
@@ -82,5 +82,5 @@ function wolframInNewTab(query: string) {
   window.open(walframUrl(query));
 }
 
-var walframUrl = (query: string): string =>
+let walframUrl = (query: string): string =>
   `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
