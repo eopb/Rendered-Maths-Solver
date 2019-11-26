@@ -1,3 +1,5 @@
+//TODO use an enum for clickmode pref in both Options and content
+
 let clickMode: string | null = null;
 chrome.storage.sync.get(
   {
