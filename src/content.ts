@@ -31,24 +31,24 @@ class MathElement {
   }
   newTab() {
     console.log(this.latex);
-    wolfram.InNewTab(this.latex);
+    Wolfram.InNewTab(this.latex);
   }
   newOverlayWindow(event: MouseEvent) {
     removeOldMath();
 
     const div = document.createElement("div");
     div.id = "MathsOverlay";
-    Style.styleDiv(div.style);
+    Style.div(div.style);
     Style.positionDiv(div.style, event);
 
     const iframe = document.createElement("iframe");
-    iframe.setAttribute("src", wolfram.url(this.latex));
-    Style.styleIframe(iframe.style);
+    iframe.setAttribute("src", Wolfram.url(this.latex));
+    Style.iframe(iframe.style);
     div.appendChild(iframe);
 
     const close = document.createElement("button");
     close.innerHTML = "&#10060;";
-    Style.styleButton(close.style);
+    Style.button(close.style);
     close.onclick = function() {
       removeOldMath();
     };
@@ -73,7 +73,7 @@ function updateMLinks() {
 }
 
 namespace Style {
-  export function styleIframe(ecss: CSSStyleDeclaration) {
+  export function iframe(ecss: CSSStyleDeclaration) {
     ecss.height = "100%";
     ecss.width = "100%";
     ecss.resize = "both";
@@ -85,7 +85,7 @@ namespace Style {
     ecss.padding = "0";
   }
 
-  export function styleDiv(ecss: CSSStyleDeclaration) {
+  export function div(ecss: CSSStyleDeclaration) {
     ecss.height = "200";
     ecss.width = "400";
     ecss.margin = "0";
@@ -97,7 +97,7 @@ namespace Style {
     ecss.left = `${event.clientX - 5}px`;
   }
 
-  export function styleButton(ecss: CSSStyleDeclaration) {
+  export function button(ecss: CSSStyleDeclaration) {
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.position = "absolute";
     ecss.right = "5px";
@@ -114,7 +114,7 @@ updateMLinks();
 
 setInterval(updateMLinks, 2000);
 
-namespace wolfram {
+namespace Wolfram {
   export function InNewTab(query: string) {
     window.open(url(query));
   }
