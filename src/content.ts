@@ -31,7 +31,7 @@ class MathElement {
   }
   newTab() {
     console.log(this.latex);
-    wolframInNewTab(this.latex);
+    wolfram.InNewTab(this.latex);
   }
   newOverlayWindow(event: MouseEvent) {
     removeOldMath();
@@ -42,7 +42,7 @@ class MathElement {
     Style.positionDiv(div.style, event);
 
     const iframe = document.createElement("iframe");
-    iframe.setAttribute("src", walframUrl(this.latex));
+    iframe.setAttribute("src", wolfram.url(this.latex));
     Style.styleIframe(iframe.style);
     div.appendChild(iframe);
 
@@ -114,9 +114,11 @@ updateMLinks();
 
 setInterval(updateMLinks, 2000);
 
-function wolframInNewTab(query: string) {
-  window.open(walframUrl(query));
-}
+namespace wolfram {
+  export function InNewTab(query: string) {
+    window.open(url(query));
+  }
 
-let walframUrl = (query: string): string =>
-  `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
+  export let url = (query: string): string =>
+    `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
+}
