@@ -4,7 +4,8 @@
     "outDir": "dist/js",
     "allowJs": true,
     "target": "es5",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "strict": true
   },
   "include": ["./src/**/*"]
 }

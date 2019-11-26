@@ -1,4 +1,4 @@
-var clickMode = null;
+let clickMode: string | null = null;
 chrome.storage.sync.get(
   {
     clickCause: "Overlay Window"
@@ -11,19 +11,19 @@ chrome.storage.sync.get(
 function updateMLinks() {
   const matches = document.querySelectorAll("script[type='math/tex']");
   matches.forEach(element => {
-    var parent = element.parentElement;
+    var parent = element.parentElement!;
 
     if (parent.onclick === null) {
       parent.onclick = function(event) {
         if (clickMode === "New Tab") {
-          wolframInNewTab(element.textContent);
+          wolframInNewTab(element.textContent!);
         } else {
           removeOldMath();
           const div = document.createElement("div");
           div.id = "MathsOverlay";
           styleDiv(div, event);
           const iframe = document.createElement("iframe");
-          iframe.setAttribute("src", walframUrl(element.textContent));
+          iframe.setAttribute("src", walframUrl(element.textContent!));
           styleIframe(iframe);
           div.appendChild(iframe);
           const close = document.createElement("button");

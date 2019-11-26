@@ -6,7 +6,7 @@ function save_options() {
       clickCause: clickCause
     },
     function() {
-      var status = document.getElementById("status");
+      var status = document.getElementById("status")!;
       status.textContent = "Options saved.";
       setTimeout(function() {
         status.textContent = "";
@@ -27,4 +27,4 @@ function restore_options() {
   );
 }
 document.addEventListener("DOMContentLoaded", restore_options);
-document.getElementById("save").addEventListener("click", save_options);
+document.getElementById("save")!.addEventListener("click", save_options);
