@@ -3,7 +3,7 @@
     "rootDir": "src",
     "outDir": "dist/js",
     "allowJs": true,
-    "target": "es5",
+    "target": "es6",
     "typeRoots": ["node_modules/@types"],
     "strict": true
   },

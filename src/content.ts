@@ -8,31 +8,52 @@ chrome.storage.sync.get(
   }
 );
 
+class MathElements {
+  matches: MathElement[];
+  constructor() {
+    this.matches = [
+      ...document.querySelectorAll("script[type='math/tex']")
+    ].map(x => new MathElement(x.textContent!, x.parentElement!));
+  }
+  onEach(callbackfn: (e: MathElement) => void): void {
+    this.matches.forEach(callbackfn);
+  }
+}
+
+class MathElement {
+  latex: string;
+  parent: HTMLElement;
+  constructor(latex: string, parent: HTMLElement) {
+    this.latex = latex;
+    this.parent = parent;
+  }
+}
+
 function updateMLinks() {
-  const matches = document.querySelectorAll("script[type='math/tex']");
-  matches.forEach(element => {
-    let parent = element.parentElement!;
+  const maths = new MathElements();
+  maths.onEach(element => {
+    let parent = element.parent;
 
     if (parent.onclick === null) {
       parent.onclick = function(event) {
         if (clickMode === "New Tab") {
-          wolframInNewTab(element.textContent!);
+          wolframInNewTab(element.latex);
         } else {
           removeOldMath();
 
           const div = document.createElement("div");
           div.id = "MathsOverlay";
-          style.styleDiv(div.style);
-          style.positionDiv(div.style, event);
+          Style.styleDiv(div.style);
+          Style.positionDiv(div.style, event);
 
           const iframe = document.createElement("iframe");
-          iframe.setAttribute("src", walframUrl(element.textContent!));
-          style.styleIframe(iframe.style);
+          iframe.setAttribute("src", walframUrl(element.latex));
+          Style.styleIframe(iframe.style);
           div.appendChild(iframe);
 
           const close = document.createElement("button");
           close.innerHTML = "&#10060;";
-          style.styleButton(close.style);
+          Style.styleButton(close.style);
           close.onclick = function() {
             removeOldMath();
           };
@@ -45,7 +66,7 @@ function updateMLinks() {
   });
 }
 
-namespace style {
+namespace Style {
   export function styleIframe(ecss: CSSStyleDeclaration) {
     ecss.height = "100%";
     ecss.width = "100%";
