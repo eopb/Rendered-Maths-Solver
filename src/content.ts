@@ -22,7 +22,8 @@ function updateMLinks() {
 
           const div = document.createElement("div");
           div.id = "MathsOverlay";
-          style.styleDiv(div.style, event);
+          style.styleDiv(div.style);
+          style.positionDiv(div.style, event);
 
           const iframe = document.createElement("iframe");
           iframe.setAttribute("src", walframUrl(element.textContent!));
@@ -57,14 +58,16 @@ namespace style {
     ecss.padding = "0";
   }
 
-  export function styleDiv(ecss: CSSStyleDeclaration, event: MouseEvent) {
+  export function styleDiv(ecss: CSSStyleDeclaration) {
     ecss.height = "200";
     ecss.width = "400";
+    ecss.margin = "0";
+    ecss.padding = "0";
+  }
+  export function positionDiv(ecss: CSSStyleDeclaration, event: MouseEvent) {
     ecss.position = "fixed";
     ecss.top = `${event.clientY - 5}px`;
     ecss.left = `${event.clientX - 5}px`;
-    ecss.margin = "0";
-    ecss.padding = "0";
   }
 
   export function styleButton(ecss: CSSStyleDeclaration) {
