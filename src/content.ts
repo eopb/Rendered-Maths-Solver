@@ -9,14 +9,19 @@ chrome.storage.sync.get(
     clickMode = items.clickCause;
   }
 );
-
+function isNotNullOrUndefined<T extends Object>(
+  input: null | undefined | T
+): input is T {
+  return input != null;
+}
 class MathElements {
   matches: MathElement[];
 
   constructor() {
-    this.matches = [
-      ...document.querySelectorAll("script[type='math/tex']")
-    ].map(e => new MathElement(e.textContent!, e.parentElement!));
+    this.matches = [...document.querySelectorAll("script[type='math/tex']")]
+      .map(e => ({ t: e.textContent, p: e.parentElement }))
+      .filter(isNotNullOrUndefined)
+      .map(e => new MathElement(e.t, e.p));
     this.matches.forEach(math => {
       if (math.element.onclick === null) {
         math.element.onclick =
