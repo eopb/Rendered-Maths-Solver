@@ -69,10 +69,6 @@ class MathElement {
   };
 }
 
-function updateMLinks() {
-  new MathElements();
-}
-
 namespace Style {
   export let iframe = (ecss: CSSStyleDeclaration) => {
     ecss.height = "100%";
@@ -103,6 +99,10 @@ namespace Style {
     ecss.top = "5px";
   };
 }
+
+let updateMLinks = () => {
+  new MathElements();
+};
 
 updateMLinks();
 
