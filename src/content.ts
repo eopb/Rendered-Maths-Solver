@@ -17,10 +17,14 @@ class MathElements {
     this.matches = [
       ...document.querySelectorAll("script[type='math/tex']")
     ].map(x => new MathElement(x.textContent!, x.parentElement!));
-  }
-
-  onEach(fn: (e: MathElement) => void): void {
-    this.matches.forEach(fn);
+    this.matches.forEach(math => {
+      if (math.element.onclick === null) {
+        math.element.onclick =
+          clickMode === "New Tab"
+            ? () => math.newTab()
+            : e => math.newOverlayWindow(e);
+      }
+    });
   }
 }
 
@@ -62,15 +66,7 @@ class MathElement {
 }
 
 function updateMLinks() {
-  const maths = new MathElements();
-  maths.onEach(math => {
-    if (math.element.onclick === null) {
-      math.element.onclick =
-        clickMode === "New Tab"
-          ? () => math.newTab()
-          : e => math.newOverlayWindow(e);
-    }
-  });
+  new MathElements();
 }
 
 namespace Style {
