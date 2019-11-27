@@ -19,9 +19,12 @@ class MathElements {
 
   constructor() {
     this.matches = [...document.querySelectorAll("script[type='math/tex']")]
-      .map(e => ({ t: e.textContent, p: e.parentElement }))
-      .filter(isNotNullOrUndefined)
-      .map(e => new MathElement(e.t, e.p));
+      .map((e): [string | null, HTMLElement | null] => [
+        e.textContent,
+        e.parentElement
+      ])
+      .filter(e => e[0] != null && e[1] != null)
+      .map(e => new MathElement(e[0]!, e[1]!));
     this.matches.forEach(math => {
       if (math.element.onclick === null) {
         math.element.onclick =
