@@ -36,9 +36,8 @@ class MathElement {
     this.element = element;
   }
 
-  newTab = () => {
-    Wolfram.InNewTab(this.latex);
-  };
+  newTab = () => Wolfram.InNewTab(this.latex);
+
   newOverlayWindow = (event: MouseEvent) => {
     this.removeOldOverlay();
 
@@ -100,18 +99,15 @@ namespace Style {
   };
 }
 
-let updateMLinks = () => {
-  new MathElements();
-};
+let updateMLinks = () => new MathElements();
 
 updateMLinks();
 
 setInterval(updateMLinks, 2000);
 
 namespace Wolfram {
-  export let InNewTab = (query: string) => {
-    window.open(url(query));
-  };
+  export let InNewTab = (query: string) => window.open(url(query));
+
   export let url = (query: string): string =>
     `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
 }
