@@ -56,7 +56,7 @@ class MathElement {
     close.innerHTML = "&#10060;";
     Style.button(close.style);
 
-    close.onclick = e => {
+    close.onclick = () => {
       this.removeOldOverlay();
     };
 
