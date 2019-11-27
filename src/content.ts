@@ -1,3 +1,5 @@
+//TODO use an enum for clickmode pref in both Options and content
+
 let clickMode: string | null = null;
 chrome.storage.sync.get(
   {
@@ -10,64 +12,65 @@ chrome.storage.sync.get(
 
 class MathElements {
   matches: MathElement[];
+
   constructor() {
     this.matches = [
       ...document.querySelectorAll("script[type='math/tex']")
     ].map(x => new MathElement(x.textContent!, x.parentElement!));
-  }
-  onEach(callbackfn: (e: MathElement) => void): void {
-    this.matches.forEach(callbackfn);
+    this.matches.forEach(math => {
+      if (math.element.onclick === null) {
+        math.element.onclick =
+          clickMode === "New Tab"
+            ? () => math.newTab()
+            : e => math.newOverlayWindow(e);
+      }
+    });
   }
 }
 
 class MathElement {
   latex: string;
-  parent: HTMLElement;
-  constructor(latex: string, parent: HTMLElement) {
+  element: HTMLElement;
+
+  constructor(latex: string, element: HTMLElement) {
     this.latex = latex;
-    this.parent = parent;
+    this.element = element;
+  }
+
+  newTab() {
+    Wolfram.InNewTab(this.latex);
+  }
+  newOverlayWindow(event: MouseEvent) {
+    removeOldMath();
+
+    const div = document.createElement("div");
+    div.id = "MathsOverlay";
+    Style.div(div.style);
+    Style.positionDiv(div.style, event);
+
+    const iframe = document.createElement("iframe");
+    iframe.setAttribute("src", Wolfram.url(this.latex));
+    Style.iframe(iframe.style);
+    div.appendChild(iframe);
+
+    const close = document.createElement("button");
+    close.innerHTML = "&#10060;";
+    Style.button(close.style);
+    close.onclick = function() {
+      removeOldMath();
+    };
+
+    div.appendChild(close);
+    document.body.appendChild(div);
   }
 }
 
 function updateMLinks() {
-  const maths = new MathElements();
-  maths.onEach(element => {
-    let parent = element.parent;
-
-    if (parent.onclick === null) {
-      parent.onclick = function(event) {
-        if (clickMode === "New Tab") {
-          wolframInNewTab(element.latex);
-        } else {
-          removeOldMath();
-
-          const div = document.createElement("div");
-          div.id = "MathsOverlay";
-          Style.styleDiv(div.style);
-          Style.positionDiv(div.style, event);
-
-          const iframe = document.createElement("iframe");
-          iframe.setAttribute("src", walframUrl(element.latex));
-          Style.styleIframe(iframe.style);
-          div.appendChild(iframe);
-
-          const close = document.createElement("button");
-          close.innerHTML = "&#10060;";
-          Style.styleButton(close.style);
-          close.onclick = function() {
-            removeOldMath();
-          };
-
-          div.appendChild(close);
-          document.body.appendChild(div);
-        }
-      };
-    }
-  });
+  new MathElements();
 }
 
 namespace Style {
-  export function styleIframe(ecss: CSSStyleDeclaration) {
+  export function iframe(ecss: CSSStyleDeclaration) {
     ecss.height = "100%";
     ecss.width = "100%";
     ecss.resize = "both";
@@ -78,8 +81,7 @@ namespace Style {
     ecss.margin = "0";
     ecss.padding = "0";
   }
-
-  export function styleDiv(ecss: CSSStyleDeclaration) {
+  export function div(ecss: CSSStyleDeclaration) {
     ecss.height = "200";
     ecss.width = "400";
     ecss.margin = "0";
@@ -90,14 +92,14 @@ namespace Style {
     ecss.top = `${event.clientY - 5}px`;
     ecss.left = `${event.clientX - 5}px`;
   }
-
-  export function styleButton(ecss: CSSStyleDeclaration) {
+  export function button(ecss: CSSStyleDeclaration) {
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.position = "absolute";
     ecss.right = "5px";
     ecss.top = "5px";
   }
 }
+
 function removeOldMath() {
   const e = document.getElementById("MathsOverlay");
   if (e !== null) e.remove();
@@ -107,9 +109,10 @@ updateMLinks();
 
 setInterval(updateMLinks, 2000);
 
-function wolframInNewTab(query: string) {
-  window.open(walframUrl(query));
+namespace Wolfram {
+  export function InNewTab(query: string) {
+    window.open(url(query));
+  }
+  export let url = (query: string): string =>
+    `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
 }
-
-let walframUrl = (query: string): string =>
-  `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
