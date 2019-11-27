@@ -20,9 +20,7 @@ class MathElements {
     this.matches.forEach(math => {
       if (math.element.onclick === null) {
         math.element.onclick =
-          clickMode === "New Tab"
-            ? () => math.newTab()
-            : e => math.newOverlayWindow(e);
+          clickMode === "New Tab" ? math.newTab : math.newOverlayWindow;
       }
     });
   }
@@ -38,9 +36,9 @@ class MathElement {
     this.element = element;
   }
 
-  newTab() {
+  newTab = () => {
     Wolfram.InNewTab(this.latex);
-  }
+  };
   newOverlayWindow = (event: MouseEvent) => {
     this.removeOldOverlay();
 
@@ -58,9 +56,8 @@ class MathElement {
     close.innerHTML = "&#10060;";
     Style.button(close.style);
 
-    let removeOldOverlay = this.removeOldOverlay;
-    close.onclick = function(e) {
-      removeOldOverlay();
+    close.onclick = e => {
+      this.removeOldOverlay();
     };
 
     div.appendChild(close);
@@ -77,7 +74,7 @@ function updateMLinks() {
 }
 
 namespace Style {
-  export function iframe(ecss: CSSStyleDeclaration) {
+  export let iframe = (ecss: CSSStyleDeclaration) => {
     ecss.height = "100%";
     ecss.width = "100%";
     ecss.resize = "both";
@@ -87,24 +84,24 @@ namespace Style {
     ecss.backgroundColor = "#fff";
     ecss.margin = "0";
     ecss.padding = "0";
-  }
-  export function div(ecss: CSSStyleDeclaration) {
+  };
+  export let div = (ecss: CSSStyleDeclaration) => {
     ecss.height = "200";
     ecss.width = "400";
     ecss.margin = "0";
     ecss.padding = "0";
-  }
-  export function positionDiv(ecss: CSSStyleDeclaration, event: MouseEvent) {
+  };
+  export let positionDiv = (ecss: CSSStyleDeclaration, event: MouseEvent) => {
     ecss.position = "fixed";
     ecss.top = `${event.clientY - 5}px`;
     ecss.left = `${event.clientX - 5}px`;
-  }
-  export function button(ecss: CSSStyleDeclaration) {
+  };
+  export let button = (ecss: CSSStyleDeclaration) => {
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.position = "absolute";
     ecss.right = "5px";
     ecss.top = "5px";
-  }
+  };
 }
 
 updateMLinks();
@@ -112,9 +109,9 @@ updateMLinks();
 setInterval(updateMLinks, 2000);
 
 namespace Wolfram {
-  export function InNewTab(query: string) {
+  export let InNewTab = (query: string) => {
     window.open(url(query));
-  }
+  };
   export let url = (query: string): string =>
     `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
 }
