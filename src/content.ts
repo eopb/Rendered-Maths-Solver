@@ -101,11 +101,9 @@ namespace Style {
   };
 }
 
-let updateMLinks = () => new MathElements();
-
-updateMLinks();
-
-setInterval(updateMLinks, 2000);
+let findMaths = () => new MathElements();
+findMaths();
+setInterval(findMaths, 2000);
 
 namespace Wolfram {
   export let InNewTab = (query: string) => window.open(url(query));
