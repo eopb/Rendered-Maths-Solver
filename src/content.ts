@@ -20,9 +20,7 @@ class MathElements {
     this.matches.forEach(math => {
       if (math.element.onclick === null) {
         math.element.onclick =
-          clickMode === "New Tab"
-            ? () => math.newTab()
-            : e => math.newOverlayWindow(e);
+          clickMode === "New Tab" ? math.newTab : math.newOverlayWindow;
       }
     });
   }
@@ -31,17 +29,17 @@ class MathElements {
 class MathElement {
   latex: string;
   element: HTMLElement;
+  overLay: HTMLDivElement | null = null;
 
   constructor(latex: string, element: HTMLElement) {
     this.latex = latex;
     this.element = element;
   }
 
-  newTab() {
-    Wolfram.InNewTab(this.latex);
-  }
-  newOverlayWindow(event: MouseEvent) {
-    removeOldMath();
+  newTab = () => Wolfram.InNewTab(this.latex);
+
+  newOverlayWindow = (event: MouseEvent) => {
+    this.removeOldOverlay();
 
     const div = document.createElement("div");
     div.id = "MathsOverlay";
@@ -56,21 +54,22 @@ class MathElement {
     const close = document.createElement("button");
     close.innerHTML = "&#10060;";
     Style.button(close.style);
-    close.onclick = function() {
-      removeOldMath();
+
+    close.onclick = () => {
+      this.removeOldOverlay();
     };
 
     div.appendChild(close);
+    this.overLay = div;
     document.body.appendChild(div);
-  }
-}
-
-function updateMLinks() {
-  new MathElements();
+  };
+  removeOldOverlay = () => {
+    if (this.overLay != null) this.overLay.remove();
+  };
 }
 
 namespace Style {
-  export function iframe(ecss: CSSStyleDeclaration) {
+  export let iframe = (ecss: CSSStyleDeclaration) => {
     ecss.height = "100%";
     ecss.width = "100%";
     ecss.resize = "both";
@@ -78,41 +77,39 @@ namespace Style {
     ecss.borderRadius = "5px";
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.backgroundColor = "#fff";
-    ecss.margin = "0";
-    ecss.padding = "0";
-  }
-  export function div(ecss: CSSStyleDeclaration) {
+    zeroSpacing(ecss);
+  };
+  export let div = (ecss: CSSStyleDeclaration) => {
     ecss.height = "200";
     ecss.width = "400";
-    ecss.margin = "0";
-    ecss.padding = "0";
-  }
-  export function positionDiv(ecss: CSSStyleDeclaration, event: MouseEvent) {
+    zeroSpacing(ecss);
+  };
+  export let positionDiv = (ecss: CSSStyleDeclaration, event: MouseEvent) => {
     ecss.position = "fixed";
     ecss.top = `${event.clientY - 5}px`;
     ecss.left = `${event.clientX - 5}px`;
-  }
-  export function button(ecss: CSSStyleDeclaration) {
+  };
+  export let button = (ecss: CSSStyleDeclaration) => {
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.position = "absolute";
     ecss.right = "5px";
     ecss.top = "5px";
-  }
+  };
+  let zeroSpacing = (ecss: CSSStyleDeclaration) => {
+    ecss.margin = "0";
+    ecss.padding = "0";
+  };
 }
 
-function removeOldMath() {
-  const e = document.getElementById("MathsOverlay");
-  if (e !== null) e.remove();
-}
+let updateMLinks = () => new MathElements();
 
 updateMLinks();
 
 setInterval(updateMLinks, 2000);
 
 namespace Wolfram {
-  export function InNewTab(query: string) {
-    window.open(url(query));
-  }
+  export let InNewTab = (query: string) => window.open(url(query));
+
   export let url = (query: string): string =>
     `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
 }
