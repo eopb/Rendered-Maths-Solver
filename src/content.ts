@@ -31,6 +31,7 @@ class MathElements {
 class MathElement {
   latex: string;
   element: HTMLElement;
+  overLay: HTMLDivElement | null = null;
 
   constructor(latex: string, element: HTMLElement) {
     this.latex = latex;
@@ -40,8 +41,8 @@ class MathElement {
   newTab() {
     Wolfram.InNewTab(this.latex);
   }
-  newOverlayWindow(event: MouseEvent) {
-    removeOldMath();
+  newOverlayWindow = (event: MouseEvent) => {
+    this.removeOldOverlay();
 
     const div = document.createElement("div");
     div.id = "MathsOverlay";
@@ -56,13 +57,19 @@ class MathElement {
     const close = document.createElement("button");
     close.innerHTML = "&#10060;";
     Style.button(close.style);
-    close.onclick = function() {
-      removeOldMath();
+
+    let removeOldOverlay = this.removeOldOverlay;
+    close.onclick = function(e) {
+      removeOldOverlay();
     };
 
     div.appendChild(close);
+    this.overLay = div;
     document.body.appendChild(div);
-  }
+  };
+  removeOldOverlay = () => {
+    if (this.overLay != null) this.overLay.remove();
+  };
 }
 
 function updateMLinks() {
@@ -98,11 +105,6 @@ namespace Style {
     ecss.right = "5px";
     ecss.top = "5px";
   }
-}
-
-function removeOldMath() {
-  const e = document.getElementById("MathsOverlay");
-  if (e !== null) e.remove();
 }
 
 updateMLinks();
