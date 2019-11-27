@@ -70,6 +70,7 @@ class MathElement {
 
 namespace Style {
   export let iframe = (ecss: CSSStyleDeclaration) => {
+    resetStyle(ecss);
     ecss.height = "100%";
     ecss.width = "100%";
     ecss.resize = "both";
@@ -79,7 +80,9 @@ namespace Style {
     ecss.backgroundColor = "#fff";
     zeroSpacing(ecss);
   };
+
   export let div = (ecss: CSSStyleDeclaration) => {
+    resetStyle(ecss);
     ecss.height = "200";
     ecss.width = "400";
     zeroSpacing(ecss);
@@ -89,15 +92,21 @@ namespace Style {
     ecss.top = `${event.clientY - 5}px`;
     ecss.left = `${event.clientX - 5}px`;
   };
+
   export let button = (ecss: CSSStyleDeclaration) => {
+    resetStyle(ecss);
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.position = "absolute";
     ecss.right = "5px";
     ecss.top = "5px";
   };
+
   let zeroSpacing = (ecss: CSSStyleDeclaration) => {
     ecss.margin = "0";
     ecss.padding = "0";
+  };
+  let resetStyle = (ecss: CSSStyleDeclaration) => {
+    (ecss as any).all = "initial";
   };
 }
 
