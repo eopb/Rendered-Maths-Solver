@@ -119,8 +119,8 @@ findMaths();
 setInterval(findMaths, 2000);
 
 namespace Wolfram {
-  export let InNewTab = (query: string) => window.open(url(query));
+  export const InNewTab = (query: string) => window.open(url(query));
 
-  export let url = (query: string): string =>
+  export const url = (query: string): string =>
     `https://www.wolframalpha.com/input/?i=${encodeURIComponent(query)}`;
 }
