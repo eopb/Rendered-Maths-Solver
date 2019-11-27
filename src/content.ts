@@ -26,15 +26,14 @@ class MathElements {
 
 class MathElement {
   latex: string;
-  parent: HTMLElement;
+  element: HTMLElement;
 
-  constructor(latex: string, parent: HTMLElement) {
+  constructor(latex: string, element: HTMLElement) {
     this.latex = latex;
-    this.parent = parent;
+    this.element = element;
   }
 
   newTab() {
-    console.log(this.latex);
     Wolfram.InNewTab(this.latex);
   }
   newOverlayWindow(event: MouseEvent) {
@@ -64,14 +63,12 @@ class MathElement {
 
 function updateMLinks() {
   const maths = new MathElements();
-  maths.onEach(element => {
-    let parent = element.parent;
-
-    if (parent.onclick === null) {
-      parent.onclick =
+  maths.onEach(math => {
+    if (math.element.onclick === null) {
+      math.element.onclick =
         clickMode === "New Tab"
-          ? () => element.newTab()
-          : e => element.newOverlayWindow(e);
+          ? () => math.newTab()
+          : e => math.newOverlayWindow(e);
     }
   });
 }
