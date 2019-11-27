@@ -77,14 +77,12 @@ namespace Style {
     ecss.borderRadius = "5px";
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
     ecss.backgroundColor = "#fff";
-    ecss.margin = "0";
-    ecss.padding = "0";
+    zeroSpacing(ecss);
   };
   export let div = (ecss: CSSStyleDeclaration) => {
     ecss.height = "200";
     ecss.width = "400";
-    ecss.margin = "0";
-    ecss.padding = "0";
+    zeroSpacing(ecss);
   };
   export let positionDiv = (ecss: CSSStyleDeclaration, event: MouseEvent) => {
     ecss.position = "fixed";
@@ -96,6 +94,10 @@ namespace Style {
     ecss.position = "absolute";
     ecss.right = "5px";
     ecss.top = "5px";
+  };
+  let zeroSpacing = (ecss: CSSStyleDeclaration) => {
+    ecss.margin = "0";
+    ecss.padding = "0";
   };
 }
 
