@@ -1,18 +1,12 @@
 function save_options() {
-  let clickCause = (document.getElementById("onclick") as any).value;
-  console.log("saving");
-  chrome.storage.sync.set(
-    {
-      clickCause: clickCause
-    },
-    function() {
-      let status = document.getElementById("status")!;
-      status.textContent = "Options saved.";
-      setTimeout(function() {
-        status.textContent = "";
-      }, 750);
-    }
-  );
+  const clickCause = (document.getElementById("onclick") as any).value;
+  chrome.storage.sync.set({ clickCause }, () => {
+    const status = document.getElementById("status")!;
+    status.textContent = "Options saved.";
+    setTimeout(() => {
+      status.textContent = "";
+    }, 750);
+  });
 }
 
 function restore_options() {
@@ -20,7 +14,7 @@ function restore_options() {
     {
       clickCause: "Overlay Window"
     },
-    function(items) {
+    items => {
       (document.getElementById("onclick") as HTMLSelectElement).value =
         items.clickCause;
     }

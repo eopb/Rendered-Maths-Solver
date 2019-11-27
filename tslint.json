@@ -4,6 +4,13 @@
         "tslint:recommended"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "trailing-comma": false,
+        "arrow-parens": false,
+        "semicolon": false,
+        "curly": false,
+        "max-classes-per-file": false,
+        "no-namespace": false
+    },
     "rulesDirectory": []
 }

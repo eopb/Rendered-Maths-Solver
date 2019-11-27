@@ -1,21 +1,17 @@
-//TODO use an enum for clickmode pref in both Options and content
+// TODO use an enum for clickmode pref in both Options and content
 
 let clickMode: string | null = null;
 chrome.storage.sync.get(
   {
     clickCause: "Overlay Window"
   },
-  function(items) {
+  items => {
     clickMode = items.clickCause;
   }
 );
-function isNotNullOrUndefined<T extends Object>(
-  input: null | undefined | T
-): input is T {
-  return input != null;
-}
+
 class MathElements {
-  matches: MathElement[];
+  private matches: MathElement[];
 
   constructor() {
     this.matches = [...document.querySelectorAll("script[type='math/tex']")]
@@ -35,18 +31,18 @@ class MathElements {
 }
 
 class MathElement {
-  latex: string;
-  element: HTMLElement;
-  overLay: HTMLDivElement | null = null;
+  public element: HTMLElement;
+  private latex: string;
+  private overLay: HTMLDivElement | null = null;
 
   constructor(latex: string, element: HTMLElement) {
     this.latex = latex;
     this.element = element;
   }
 
-  newTab = () => Wolfram.InNewTab(this.latex);
+  public newTab = () => Wolfram.InNewTab(this.latex);
 
-  newOverlayWindow = (event: MouseEvent) => {
+  public newOverlayWindow = (event: MouseEvent) => {
     this.removeOldOverlay();
 
     const div = document.createElement("div");
@@ -71,7 +67,7 @@ class MathElement {
     this.overLay = div;
     document.body.appendChild(div);
   };
-  removeOldOverlay = () => {
+  private removeOldOverlay = () => {
     if (this.overLay != null) this.overLay.remove();
   };
 }
@@ -109,11 +105,11 @@ namespace Style {
     ecss.top = "5px";
   };
 
-  let zeroSpacing = (ecss: CSSStyleDeclaration) => {
+  const zeroSpacing = (ecss: CSSStyleDeclaration) => {
     ecss.margin = "0";
     ecss.padding = "0";
   };
-  let resetStyle = (ecss: CSSStyleDeclaration) => {
+  const resetStyle = (ecss: CSSStyleDeclaration) => {
     (ecss as any).all = "initial";
   };
 }
