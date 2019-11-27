@@ -5,7 +5,15 @@ cache:
     - node_modules/
 
 stages:
+  - lint
   - build
+
+lint:
+  stage: lint
+  script:
+    - npm install tslint typescript -g
+    - npm ci
+    - tslint -c tslint.json 'src/**/*.ts'
 
 build:
   stage: build
