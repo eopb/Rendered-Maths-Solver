@@ -89,6 +89,7 @@ namespace Style {
     resetStyle(ecss);
     ecss.height = "200";
     ecss.width = "400";
+    ecss.resize = "both";
     zeroSpacing(ecss);
   };
   export let positionDiv = (ecss: CSSStyleDeclaration, event: MouseEvent) => {
