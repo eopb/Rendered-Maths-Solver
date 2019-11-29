@@ -14,7 +14,7 @@ class MathElements {
   private matches: MathElement[];
 
   constructor() {
-    this.matches = [...document.querySelectorAll("script[type='math/tex']")]
+    this.matches = [...document.querySelectorAll("script[type^='math/tex']")]
       .map((e): [string | null, HTMLElement | null] => [
         e.textContent,
         e.parentElement
