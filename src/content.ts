@@ -17,7 +17,7 @@ chrome.storage.onChanged.addListener(() =>
     },
     items => {
       clickMode = items.clickCause;
-      new MathElements(true);
+      const _ = new MathElements(true);
     }
   )
 );
