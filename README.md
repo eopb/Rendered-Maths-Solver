@@ -14,6 +14,8 @@ If you run into any issues with this add-on please email [incoming+efunb-rendere
 
 [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/rendered-maths-solver)
 
+[Google Chrome / Chromium](https://chrome.google.com/webstore/detail/rendered-maths-solver/oidmcieabepibdebcckbncbfpkhflkcl)
+
 [Download-Latest](https://gitlab.com/efunb/rendered-maths-solver/-/jobs/artifacts/master/download?job=build)
 
 ## Where does it work?
