@@ -86,7 +86,7 @@ class MathElement {
     div.appendChild(iframe);
 
     const close = document.createElement("button");
-    close.innerHTML = "&#10060;";
+    close.innerHTML = "&#10005;";
     Style.button(close.style);
 
     close.onclick = () => {
@@ -131,7 +131,11 @@ namespace Style {
   export let button = (ecss: CSSStyleDeclaration) => {
     resetStyle(ecss);
     ecss.boxShadow = "0px 8px 17px -3px rgba(0,0,0,0.54)";
+    ecss.color = "#fff";
+    ecss.backgroundColor = "#000";
     ecss.position = "absolute";
+    ecss.padding = "3px 7px";
+    ecss.borderRadius = "3px";
     ecss.right = "5px";
     ecss.top = "5px";
   };
