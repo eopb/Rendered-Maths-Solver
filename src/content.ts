@@ -10,10 +10,40 @@ chrome.storage.sync.get(
   }
 );
 
+chrome.storage.onChanged.addListener(() =>
+  chrome.storage.sync.get(
+    {
+      clickCause: "Overlay Window"
+    },
+    items => {
+      clickMode = items.clickCause;
+      console.log("pass");
+      new MathElements(true);
+    }
+  )
+);
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+const findMaths = () => new MathElements(false);
+
+const initRMS = async () => {
+  while (true) {
+    if (clickMode != null) {
+      findMaths();
+      setInterval(findMaths, 2000);
+      return;
+    } else await sleep(200);
+  }
+};
+
+initRMS();
+
 class MathElements {
   private matches: MathElement[];
+  private reLambda: boolean;
 
-  constructor() {
+  constructor(reLambda: boolean) {
     this.matches = [...document.querySelectorAll("script[type^='math/tex']")]
       .map((e): [string | null, HTMLElement | null] => [
         e.textContent,
@@ -21,8 +51,9 @@ class MathElements {
       ])
       .filter(e => e[0] != null && e[1] != null)
       .map(e => new MathElement(e[0]!, e[1]!));
+    this.reLambda = reLambda;
     this.matches.forEach(math => {
-      if (math.element.onclick === null) {
+      if (math.element.onclick === null || reLambda) {
         math.element.onclick =
           clickMode === "New Tab" ? math.newTab : math.newOverlayWindow;
       }
@@ -114,10 +145,6 @@ namespace Style {
     (ecss as any).all = "initial";
   };
 }
-
-let findMaths = () => new MathElements();
-findMaths();
-setInterval(findMaths, 2000);
 
 namespace Wolfram {
   export const InNewTab = (query: string) => window.open(url(query));
