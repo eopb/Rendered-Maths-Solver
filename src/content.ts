@@ -17,7 +17,6 @@ chrome.storage.onChanged.addListener(() =>
     },
     items => {
       clickMode = items.clickCause;
-      console.log("pass");
       new MathElements(true);
     }
   )
