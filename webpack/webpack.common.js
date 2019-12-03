@@ -5,6 +5,7 @@ const srcDir = "../src/";
 
 module.exports = {
     entry: {
+        file: path.join(__dirname, srcDir + "file.js"),
         content: path.join(__dirname, srcDir + "content.ts"),
         options: path.join(__dirname, srcDir + "options.ts")
     },
@@ -20,10 +21,15 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.tsx?$/,
-            use: "ts-loader",
-            exclude: /node_modules/
-        }]
+                test: /\.tsx?$/,
+                use: "ts-loader",
+                exclude: /node_modules/
+            },
+            {
+                test: /\.txt$/i,
+                use: "raw-loader"
+            }
+        ]
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"]

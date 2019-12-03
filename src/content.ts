@@ -1,3 +1,8 @@
+declare module "file.js";
+import txt from "file.js";
+
+console.log(txt);
+
 // TODO use an enum for clickmode pref in both Options and content
 
 let clickMode: string | null = null;
