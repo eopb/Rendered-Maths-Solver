@@ -18,6 +18,15 @@ If you run into any issues with this add-on please email [incoming+efunb-rendere
 
 [Download-Latest](https://gitlab.com/efunb/rendered-maths-solver/-/jobs/artifacts/master/download?job=build)
 
+## How to build
+
+Run these commands.
+
+```
+npm install
+npm run build
+```
+
 ## Where does it work?
 
 It works in Firefox and Google Chrome.
