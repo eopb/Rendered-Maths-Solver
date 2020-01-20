@@ -1,7 +1,7 @@
 {
     "name": "Rendered Maths Solver",
     "description": "A browser add-on that that provides solutions to LaTeX equations rendered with MathJax using Wolfram Alpha.",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "manifest_version": 2,
     "content_scripts": [{
         "matches": [
